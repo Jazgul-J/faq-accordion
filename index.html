@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>FAQ Accordion</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .accordion-item {
+            border-bottom: 1px solid #ccc;
+            padding: 15px 0;
+        }
+        .question {
+            cursor: pointer;
+            font-weight: bold;
+            position: relative;
+            padding-right: 20px;
+        }
+        .question::after {
+            content: '+';
+            position: absolute;
+            right: 0;
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+        .question.active::after {
+            content: '-';
+        }
+        .answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            margin-top: 5px;
+        }
+        .answer.open {
+            max-height: 500px; /* достаточно для ответа */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>FAQ Accordion</h1>
+
+    <div class="accordion-item">
+        <div class="question">What is an accordion?</div>
+        <div class="answer">
+            An accordion is a graphical control element comprising a vertically stacked list of items, such as labels or thumbnails.
+        </div>
+    </div>
+
+    <div class="accordion-item">
+        <div class="question">How does this FAQ work?</div>
+        <div class="answer">
+            Click on the question to toggle showing or hiding the answer.
+        </div>
+    </div>
+
+    <div class="accordion-item">
+        <div class="question">Can I add more questions?</div>
+        <div class="answer">
+            Yes, you can add as many questions and answers as you want by copying the accordion-item block.
+        </div>
+    </div>
+
+    <script>
+        const questions = document.querySelectorAll('.question');
+
+        questions.forEach(question => {
+            question.addEventListener('click', () => {
+                const currentlyActive = document.querySelector('.question.active');
+                if (currentlyActive && currentlyActive !== question) {
+                    currentlyActive.classList.remove('active');
+                    currentlyActive.nextElementSibling.classList.remove('open');
+                }
+                question.classList.toggle('active');
+                const answer = question.nextElementSibling;
+                answer.classList.toggle('open');
+            });
+        });
+    </script>
+</body>
+</html>
